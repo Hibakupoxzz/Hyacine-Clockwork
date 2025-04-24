@@ -32,7 +32,7 @@
   }
 
   .logo {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--accent-pink);
     margin-bottom: 20px;
     text-shadow: 0 0 8px var(--accent-pink);
@@ -43,7 +43,7 @@
   }
 
   .clock {
-    font-size: 3.6rem;
+    font-size: 3.1rem;
     background: var(--card-bg);
     padding: 20px 40px;
     border-radius: 20px;
@@ -113,8 +113,8 @@ margin-right: 5px;
 
   .music-toggle {
 position: absolute;
-bottom: 30px;
-right: 30px;
+bottom: 55px;
+right: 35px;
 background-color: var(--accent-pink);
 color: var(--bg-color);
 width: 60px;
