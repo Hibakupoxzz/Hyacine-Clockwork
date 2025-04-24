@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hyacine Clockwork</title>
+    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+  <div class="logo"><img src="Hyacine cute icon.png" alt=""> Hyacine Clockwork</div>
+  <div class="stars"></div>
+
+  <div class="clock" id="clock">00:00:00 AM</div>
+  <div class="date" id="date">Senin, 01 Januari 2025</div>
+  <button class="theme-toggle" onclick="manualToggle()">Change Theme</button>
+
+  <button class="music-toggle" id="musicToggle" onclick="toggleMusic()">
+    <i class="fas fa-volume-up"></i>
+  </button>
+
+  <audio id="backgroundMusic" loop>
+    <source src="Amphoreus' Saga of Heroes  Hyacine.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    let manualOverride = false;
+    let musicPlaying = false;
+    const musicToggle = document.getElementById("musicToggle");
+    const backgroundMusic = document.getElementById("backgroundMusic");
+
+    function toggleMusic() {
+      const icon = musicToggle.querySelector("i");
+      if (musicPlaying) {
+        backgroundMusic.pause();
+        musicPlaying = false;
+        icon.className = "fas fa-volume-up"; // Play icon
+      } else {
+        backgroundMusic.play();
+        musicPlaying = true;
+        icon.className = "fas fa-pause"; // Pause icon
+      }
+    }
+
+    function updateClock() {
+      const now = new Date();
+
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      const currentHour = now.getHours();
+      if (!manualOverride) {
+        applyAutoTheme(currentHour);
+      }
+
+      hours = hours % 12 || 12;
+      hours = String(hours).padStart(2, '0');
+
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+
+      const day = days[now.getDay()];
+      const date = String(now.getDate()).padStart(2, '0');
+      const month = months[now.getMonth()];
+      const year = now.getFullYear();
+
+      document.getElementById('date').textContent = `${day}, ${date} ${month} ${year}`;
+    }
+
+    function applyAutoTheme(hour) {
+      if (hour >= 6 && hour < 18) {
+        document.body.classList.add('light');
+      } else {
+        document.body.classList.remove('light');
+      }
+    }
+
+    function manualToggle() {
+      manualOverride = true;
+      document.body.classList.toggle('light');
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
